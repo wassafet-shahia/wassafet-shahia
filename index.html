@@ -665,68 +665,73 @@
         </div>
     </footer>
 
-    <script>
-        // تأثيرات التمرير
-        document.addEventListener('DOMContentLoaded', function() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            fadeElements.forEach(element => {
-                observer.observe(element);
-            });
-
-            // تأثيرات hover للبطاقات
-            const featureCards = document.querySelectorAll('.feature-card');
-            
-            featureCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-15px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-
-            // تتبع النقر على زر التحميل
-            const downloadButtons = document.querySelectorAll('.btn-download');
-            downloadButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#download' || this.getAttribute('href') === 'https://www.mediafire.com/file/8u3rsu2k8r7cidq/وصفات_شهية.apk/file') {
-                        e.preventDefault();
-                        alert('شكراً لاهتمامك! سيتم توجيهك لتحميل التطبيق. استمتعي بتجربة الطهي 🍳');
-                        // هنا يمكنك إضافة رابط التحميل الفعلي
-                    }
-                });
-            });
-
-            // تأثير الكتابة للنص الرئيسي
-            const heroText = document.querySelector('.hero p');
-            const text = heroText.textContent;
-            heroText.textContent = '';
-            let i = 0;
-            
-            function typeWriter() {
-                if (i < text.length) {
-                    heroText.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 50);
+<script>
+    // تأثيرات التمرير
+    document.addEventListener('DOMContentLoaded', function() {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
-            }
-            
-            // بدء تأثير الكتابة بعد تحميل الصفحة
-            setTimeout(typeWriter, 1000);
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
-    </script>
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // تأثيرات hover للبطاقات
+        const featureCards = document.querySelectorAll('.feature-card');
+        
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // تتبع النقر على زر التحميل
+        const downloadButtons = document.querySelectorAll('.btn-download');
+        downloadButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                // زر الهيدر (الرابط الداخلي #download)
+                if (this.getAttribute('href') === '#download') {
+                    e.preventDefault();
+                    // فقط التمرير السلس إلى قسم التحميل
+                    document.getElementById('download').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                }
+                // زر قسم التحميل (رابط mediafire) - اتركه يعمل بشكل طبيعي
+                // لا تضع e.preventDefault() لهذا الرابط
+            });
+        });
+
+        // تأثير الكتابة للنص الرئيسي
+        const heroText = document.querySelector('.hero p');
+        const text = heroText.textContent;
+        heroText.textContent = '';
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                heroText.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        
+        // بدء تأثير الكتابة بعد تحميل الصفحة
+        setTimeout(typeWriter, 1000);
+    });
+</script>
 </body>
 </html>
